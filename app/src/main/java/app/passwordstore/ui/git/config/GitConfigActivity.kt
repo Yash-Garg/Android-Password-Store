@@ -61,7 +61,7 @@ class GitConfigActivity : BaseGitActivity() {
             Snackbar.LENGTH_SHORT
           )
           .show()
-        Handler(Looper.getMainLooper()).postDelayed(500) { finish() }
+        Handler(Looper.getMainLooper()).postDelayed(FINISH_DELAY) { finish() }
       }
     }
   }
@@ -147,7 +147,7 @@ class GitConfigActivity : BaseGitActivity() {
           val shortBranchName = Repository.shortenRefName(branchName)
           getString(R.string.git_head_on_branch, shortBranchName)
         } else {
-          val commitHash = headRef.objectId.abbreviate(8).name()
+          val commitHash = headRef.objectId.abbreviate(PREFIX_LEN).name()
           getString(R.string.git_head_detached, commitHash)
         }
       }
@@ -155,5 +155,10 @@ class GitConfigActivity : BaseGitActivity() {
         logcat(ERROR) { "Error getting HEAD reference\n${ex}" }
         getString(R.string.git_head_missing)
       }
+  }
+
+  companion object {
+    private const val PREFIX_LEN = 8
+    private const val FINISH_DELAY = 500L
   }
 }

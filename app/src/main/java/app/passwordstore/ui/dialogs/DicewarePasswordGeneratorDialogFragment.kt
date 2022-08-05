@@ -44,7 +44,9 @@ class DicewarePasswordGeneratorDialogFragment : DialogFragment() {
     builder.setView(binding.root)
 
     binding.passwordSeparatorText.setText(prefs.getString(DICEWARE_SEPARATOR) ?: "-")
-    binding.passwordLengthText.setText(prefs.getInt(DICEWARE_LENGTH, 5).toString())
+    binding.passwordLengthText.setText(
+      prefs.getInt(DICEWARE_LENGTH, DEFAULT_DICEWARE_LENGTH).toString()
+    )
     binding.passwordText.typeface = Typeface.MONOSPACE
 
     merge(
@@ -75,7 +77,8 @@ class DicewarePasswordGeneratorDialogFragment : DialogFragment() {
   }
 
   private fun generatePassword(binding: FragmentPwgenDicewareBinding) {
-    val length = binding.passwordLengthText.text?.toString()?.toIntOrNull() ?: 5
+    val length =
+      binding.passwordLengthText.text?.toString()?.toIntOrNull() ?: DEFAULT_DICEWARE_LENGTH
     val separator = binding.passwordSeparatorText.text?.toString()?.getOrNull(0) ?: '-'
     setPreferences(length, separator)
     binding.passwordText.text = dicewareGenerator.generatePassphrase(length, separator)
@@ -86,5 +89,9 @@ class DicewarePasswordGeneratorDialogFragment : DialogFragment() {
       putInt(DICEWARE_LENGTH, length)
       putString(DICEWARE_SEPARATOR, separator.toString())
     }
+  }
+
+  companion object {
+    private const val DEFAULT_DICEWARE_LENGTH = 5
   }
 }

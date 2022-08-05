@@ -182,7 +182,7 @@ class GitServerConfigActivity : BaseGitActivity() {
                 Snackbar.LENGTH_SHORT
               )
               .show()
-            Handler(Looper.getMainLooper()).postDelayed(500) { finish() }
+            Handler(Looper.getMainLooper()).postDelayed(FINISH_DELAY) { finish() }
           } else {
             cloneRepository()
           }
@@ -289,7 +289,7 @@ class GitServerConfigActivity : BaseGitActivity() {
     files.isNotEmpty() && !(files.size == 1 && files[0].name == ".git")
 
   companion object {
-
+    private const val FINISH_DELAY = 500L
     private val PORT_REGEX = ":[0-9]{1,5}/".toRegex()
 
     fun createCloneIntent(context: Context): Intent {

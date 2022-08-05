@@ -87,7 +87,8 @@ open class BasePgpActivity : AppCompatActivity() {
   fun copyPasswordToClipboard(password: String?) {
     copyTextToClipboard(password)
 
-    val clearAfter = settings.getString(PreferenceKeys.GENERAL_SHOW_TIME)?.toIntOrNull() ?: 45
+    val clearAfter =
+      settings.getString(PreferenceKeys.GENERAL_SHOW_TIME)?.toIntOrNull() ?: DEFAULT_CLEAR_LIMIT
 
     if (clearAfter != 0) {
       val service =
@@ -104,7 +105,7 @@ open class BasePgpActivity : AppCompatActivity() {
   }
 
   companion object {
-
+    private const val DEFAULT_CLEAR_LIMIT = 45
     const val EXTRA_FILE_PATH = "FILE_PATH"
     const val EXTRA_REPO_PATH = "REPO_PATH"
 

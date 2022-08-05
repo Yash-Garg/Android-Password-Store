@@ -48,7 +48,7 @@ class ClipboardService : Service() {
           return super.onStartCommand(intent, flags, startId)
         }
         ACTION_START -> {
-          val time = intent.getIntExtra(EXTRA_NOTIFICATION_TIME, 45)
+          val time = intent.getIntExtra(EXTRA_NOTIFICATION_TIME, EXTRA_NOTIF_TIME)
 
           if (time == 0) {
             stopSelf()
@@ -96,7 +96,7 @@ class ClipboardService : Service() {
         if (deepClear) {
           withContext(Dispatchers.IO) {
             repeat(CLIPBOARD_CLEAR_COUNT) {
-              val count = (it * 500).toString()
+              val count = (it * COUNT_MULTIPLIER).toString()
               clipboard.setPrimaryClip(ClipData.newPlainText(count, count))
             }
           }
@@ -112,12 +112,12 @@ class ClipboardService : Service() {
     while (scope.isActive && current < showTime) {
       // Block for 1s or until cancel is signalled
       current++
-      delay(1000)
+      delay(DEFAULT_DELAY)
     }
   }
 
   private fun createNotification(clearTime: Int) {
-    val clearTimeMs = clearTime * 1000L
+    val clearTimeMs = clearTime * DEFAULT_DELAY
     val clearIntent = Intent(this, ClipboardService::class.java).apply { action = ACTION_CLEAR }
     val pendingIntent =
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -210,5 +210,8 @@ class ClipboardService : Service() {
     // caution,
     // push 35 fake ones.
     private const val CLIPBOARD_CLEAR_COUNT = 35
+    private const val DEFAULT_DELAY = 1000L
+    private const val EXTRA_NOTIF_TIME = 45
+    private const val COUNT_MULTIPLIER = 500
   }
 }

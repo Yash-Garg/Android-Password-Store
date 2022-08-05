@@ -21,6 +21,7 @@ import javax.inject.Qualifier
 @Module
 @InstallIn(FragmentComponent::class)
 object DicewareModule {
+  private const val DEFAULT_SIDES = 6
 
   @Provides
   fun provideDicewareGenerator(
@@ -34,7 +35,7 @@ object DicewareModule {
   fun provideDie(
     intGenerator: RandomIntGenerator,
   ): Die {
-    return Die(6, intGenerator)
+    return Die(DEFAULT_SIDES, intGenerator)
   }
 
   @Provides
