@@ -49,13 +49,11 @@ class AutofillFilterView : AppCompatActivity() {
 
     private const val HEIGHT_PERCENTAGE = 0.9
     private const val WIDTH_PERCENTAGE = 0.75
-
     private const val EXTRA_FORM_ORIGIN_WEB =
       "app.passwordstore.autofill.oreo.ui.EXTRA_FORM_ORIGIN_WEB"
     private const val EXTRA_FORM_ORIGIN_APP =
       "app.passwordstore.autofill.oreo.ui.EXTRA_FORM_ORIGIN_APP"
     private var matchAndDecryptFileRequestCode = 1
-
     fun makeMatchAndDecryptFileIntentSender(
       context: Context,
       formOrigin: FormOrigin
@@ -84,11 +82,9 @@ class AutofillFilterView : AppCompatActivity() {
   private lateinit var formOrigin: FormOrigin
   private lateinit var directoryStructure: DirectoryStructure
   private val binding by viewBinding(ActivityOreoAutofillFilterBinding::inflate)
-
   private val model: SearchableRepositoryViewModel by viewModels {
     ViewModelProvider.AndroidViewModelFactory(application)
   }
-
   private val decryptAction =
     registerForActivityResult(StartActivityForResult()) { result ->
       if (result.resultCode == RESULT_OK) {
@@ -101,7 +97,6 @@ class AutofillFilterView : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
     setFinishOnTouchOutside(true)
-
     val params = window.attributes
     params.height = (HEIGHT_PERCENTAGE * resources.displayMetrics.heightPixels).toInt()
     params.width = (WIDTH_PERCENTAGE * resources.displayMetrics.widthPixels).toInt()
@@ -200,15 +195,18 @@ class AutofillFilterView : AppCompatActivity() {
         }
         // Switch RecyclerView out for a "no results" message if the new list is empty and
         // the message is not yet shown (and vice versa).
-        if (
-          (list.isEmpty() && rvPasswordSwitcher.nextView.id == rvPasswordEmpty.id) ||
-            (list.isNotEmpty() && rvPasswordSwitcher.nextView.id == rvPassword.id)
-        ) {
+        if (hasResults(list)) {
           rvPasswordSwitcher.showNext()
         }
       }
     }
   }
+
+  private fun hasResults(list: List<PasswordItem>): Boolean =
+    with(binding) {
+      (list.isEmpty() && rvPasswordSwitcher.nextView.id == rvPasswordEmpty.id) ||
+        (list.isNotEmpty() && rvPasswordSwitcher.nextView.id == rvPassword.id)
+    }
 
   private fun updateSearch() {
     model.search(

@@ -163,10 +163,9 @@ class PasswordStore : BaseGitActivity() {
 
   override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
     // open search view on search key, or Ctr+F
-    if (
-      (keyCode == KeyEvent.KEYCODE_SEARCH ||
-        keyCode == KeyEvent.KEYCODE_F && event.isCtrlPressed) && !searchItem.isActionViewExpanded
-    ) {
+    val isSearchEvent =
+      (keyCode == KeyEvent.KEYCODE_SEARCH || keyCode == KeyEvent.KEYCODE_F && event.isCtrlPressed)
+    if (isSearchEvent && !searchItem.isActionViewExpanded) {
       searchItem.expandActionView()
       return true
     }

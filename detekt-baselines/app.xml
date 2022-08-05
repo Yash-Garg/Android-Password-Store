@@ -2,12 +2,6 @@
 <SmellBaseline>
   <ManuallySuppressedIssues/>
   <CurrentIssues>
-    <ID>ComplexCondition:AutofillFilterView.kt$AutofillFilterView$(list.isEmpty() &amp;&amp; rvPasswordSwitcher.nextView.id == rvPasswordEmpty.id) || (list.isNotEmpty() &amp;&amp; rvPasswordSwitcher.nextView.id == rvPassword.id)</ID>
-    <ID>ComplexCondition:BaseGitActivity.kt$BaseGitActivity$(rootCause is org.eclipse.jgit.errors.TransportException || rootCause is org.eclipse.jgit.api.errors.TransportException || rootCause is org.eclipse.jgit.api.errors.InvalidRemoteException || (rootCause is UserAuthException &amp;&amp; rootCause.message == "Exhausted available authentication methods"))</ID>
-    <ID>ComplexCondition:GitServerConfigActivity.kt$GitServerConfigActivity$localDir.exists() &amp;&amp; localDirFiles.isNotEmpty() &amp;&amp; !(localDirFiles.size == 1 &amp;&amp; localDirFiles[0].name == ".git")</ID>
-    <ID>ComplexCondition:PasswordCreationActivity.kt$PasswordCreationActivity$(!editing || (editing &amp;&amp; suggestedName != file.nameWithoutExtension)) &amp;&amp; file.exists()</ID>
-    <ID>ComplexCondition:PasswordStore.kt$PasswordStore$(keyCode == KeyEvent.KEYCODE_SEARCH || keyCode == KeyEvent.KEYCODE_F &amp;&amp; event.isCtrlPressed) &amp;&amp; !searchItem.isActionViewExpanded</ID>
-    <ID>ComplexMethod:AutofillFilterView.kt$AutofillFilterView$private fun bindUI()</ID>
     <ID>ComplexMethod:GitCommandExecutor.kt$GitCommandExecutor$suspend fun execute(): Result&lt;Unit, Throwable></ID>
     <ID>ComplexMethod:GitServerConfigActivity.kt$GitServerConfigActivity$override fun onCreate(savedInstanceState: Bundle?)</ID>
     <ID>ComplexMethod:Migrations.kt$private fun migrateToGitUrlBasedConfig(sharedPrefs: SharedPreferences, gitSettings: GitSettings)</ID>
@@ -28,7 +22,6 @@
     <ID>LongMethod:GeneralSettings.kt$GeneralSettings$override fun provideSettings(builder: PreferenceScreen.Builder)</ID>
     <ID>LongMethod:GitCommandExecutor.kt$GitCommandExecutor$suspend fun execute(): Result&lt;Unit, Throwable></ID>
     <ID>LongMethod:GitServerConfigActivity.kt$GitServerConfigActivity$override fun onCreate(savedInstanceState: Bundle?)</ID>
-    <ID>LongMethod:GitServerConfigActivity.kt$GitServerConfigActivity$private fun cloneRepository()</ID>
     <ID>LongMethod:PasswordCreationActivity.kt$PasswordCreationActivity$override fun onCreate(savedInstanceState: Bundle?)</ID>
     <ID>LongMethod:PasswordCreationActivity.kt$PasswordCreationActivity$private fun encrypt()</ID>
     <ID>LongMethod:PasswordFragment.kt$PasswordFragment$private fun initializePasswordList()</ID>

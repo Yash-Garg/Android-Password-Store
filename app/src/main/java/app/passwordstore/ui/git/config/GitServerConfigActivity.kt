@@ -30,6 +30,7 @@ import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.runCatching
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import java.io.File
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -227,11 +228,7 @@ class GitServerConfigActivity : BaseGitActivity() {
     val localDir = requireNotNull(PasswordRepository.getRepositoryDirectory())
     val localDirFiles = localDir.listFiles() ?: emptyArray()
     // Warn if non-empty folder unless it's a just-initialized store that has just a .git folder
-    if (
-      localDir.exists() &&
-        localDirFiles.isNotEmpty() &&
-        !(localDirFiles.size == 1 && localDirFiles[0].name == ".git")
-    ) {
+    if (localDir.exists() && isGitInitDir(localDirFiles)) {
       MaterialAlertDialogBuilder(this)
         .setTitle(R.string.dialog_delete_title)
         .setMessage(resources.getString(R.string.dialog_delete_msg, localDir.toString()))
@@ -287,6 +284,9 @@ class GitServerConfigActivity : BaseGitActivity() {
       }
     }
   }
+
+  private fun isGitInitDir(files: Array<File>): Boolean =
+    files.isNotEmpty() && !(files.size == 1 && files[0].name == ".git")
 
   companion object {
 

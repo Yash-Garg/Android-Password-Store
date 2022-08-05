@@ -368,9 +368,9 @@ class PasswordCreationActivity : BasePgpActivity() {
             // Additionally, if we were editing and the incoming and outgoing
             // filenames differ, it means we renamed. Ensure that the target
             // doesn't already exist to prevent an accidental overwrite.
-            if (
-              (!editing || (editing && suggestedName != file.nameWithoutExtension)) && file.exists()
-            ) {
+            val isTargetChanged =
+              (!editing || (editing && suggestedName != file.nameWithoutExtension))
+            if (isTargetChanged && file.exists()) {
               snackbar(message = getString(R.string.password_creation_duplicate_error))
               return@runCatching
             }

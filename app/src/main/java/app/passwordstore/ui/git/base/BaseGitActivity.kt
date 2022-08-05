@@ -170,15 +170,16 @@ abstract class BaseGitActivity : AppCompatActivity() {
     // exceptions.
     // Also, SSHJ's UserAuthException about exhausting available authentication methods hides
     // more useful exceptions.
-    while (
-      (rootCause is org.eclipse.jgit.errors.TransportException ||
-        rootCause is org.eclipse.jgit.api.errors.TransportException ||
-        rootCause is org.eclipse.jgit.api.errors.InvalidRemoteException ||
-        (rootCause is UserAuthException &&
-          rootCause.message == "Exhausted available authentication methods"))
-    ) {
+    while (matchingCause(rootCause)) {
       rootCause = rootCause.cause ?: break
     }
     return rootCause
+  }
+
+  private fun matchingCause(cause: Throwable): Boolean {
+    return (cause is org.eclipse.jgit.errors.TransportException ||
+      cause is org.eclipse.jgit.api.errors.TransportException ||
+      cause is org.eclipse.jgit.api.errors.InvalidRemoteException ||
+      (cause is UserAuthException && cause.message == "Exhausted available authentication methods"))
   }
 }
